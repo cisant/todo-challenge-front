@@ -1,0 +1,35 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Nova Tarefa</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <div class="input-group">
+          <input id="description" type="text" [(ngModel)]="todo.description" class="form-control" name="description">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <div class="input-group">
+          <input id="name" type="text" [(ngModel)]="todo.name" class="form-control" name="name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-group">
+          <input id="email" type="email" [(ngModel)]="todo.email" class="form-control" name="email">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="saveTodo()" [disabled]="isLoading">
+      {{isLoading ? 'Carregando...' : 'Criar Tarefa'}}
+    </button>
+  </div>
+</ng-template>
