@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { NotifierService } from 'src/app/notifier.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class AddTodoComponent {
   constructor(
     private modalService: NgbModal,
     private toastr: ToastrService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private notifier: NotifierService
   ) {}
 
   open() {
@@ -46,6 +48,7 @@ export class AddTodoComponent {
       if (result && result.valid) {
         this.toastr.success('Tarefa criada com sucesso!');
         this.modalService.dismissAll();
+        this.notifier.notify('UpdateTodoList');
       } else if (result && result.didYouMean) {
         this.toastr.warning(`Você quis dizer ${result.didYouMean}?`);
       } else {

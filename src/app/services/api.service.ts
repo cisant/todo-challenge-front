@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { SocketioService } from './socketio.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private socketio: SocketioService) {}
 
   getHttpOptions() {
     const options = {
@@ -21,6 +22,10 @@ export class ApiService {
     const headers = {
       'Content-Type': 'application/json',
     };
+    const socketId = this.socketio.getSocketId();
+    if (socketId) {
+      headers['current-socket-id'] = socketId;
+    }
     return headers;
   }
 
